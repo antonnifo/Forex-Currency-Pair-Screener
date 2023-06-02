@@ -3,15 +3,33 @@
 <head>
     <title>Candlestick Chart</title>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 <body>
-    <div id="chart-container"></div>
+    <div class="container">
+        <div class="row m-3">
+            <div class="col-12">
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'chart:filter_by_currency' 'USDCAD' %}">USDCAD</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'chart:filter_by_currency' 'EURAUD' %}"> EURAUD</a>
+                    </li>
+                    <li class="nav-item">       
+                         <a class="nav-link " href="{% url 'chart:filter_by_currency' 'GBPUSD' %}">GBPUSD</a>
+                    </li>
+                </ul>
+             </div>    
 
+            <div class="col-12" id="chart-container"></div>
+        </div>
+    </div>
    <script>
         // JavaScript code to render the chart using Plotly.js
         document.addEventListener('DOMContentLoaded', function() {
             var data = JSON.parse('{{ data|safe }}');
-            
+
             var dates = [];
             var open = [];
             var high = [];
@@ -44,7 +62,7 @@
             
             // Define the layout
             var layout = {
-                title: 'Currency Performance',
+                title: '{{currency}} Currency Performance',
                 xaxis: {
                     rangeslider: {
                         visible: false
@@ -60,6 +78,6 @@
             Plotly.newPlot('chart-container', data, layout);
         });
     </script>    
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 </html>
