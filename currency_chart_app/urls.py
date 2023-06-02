@@ -4,6 +4,6 @@ from . import views
 app_name = 'chart'
 
 urlpatterns = [
-    path('', views.index, name='home'),
+    path('', views.candlestick_chart, name='home'),
 
 ]
