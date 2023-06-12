@@ -25,59 +25,61 @@
             <div class="col-12" id="chart-container"></div>
         </div>
     </div>
-   <script>
-        // JavaScript code to render the chart using Plotly.js
+  
+
+    <script>
         document.addEventListener('DOMContentLoaded', function() {
             var data = JSON.parse('{{ data|safe }}');
 
             var dates = [];
-            var open = [];
-            var high = [];
-            var low = [];
-            var close = [];
-            
-            // Iterate over the data and extract the necessary values
+            var opens = [];
+            var highs = [];
+            var lows = [];
+            var closes = [];
+
             for (var i = 0; i < data.length; i++) {
                 dates.push(data[i].timestamp);
-                open.push(data[i].open);
-                high.push(data[i].high);
-                low.push(data[i].low);
-                close.push(data[i].close);
+                opens.push(data[i].open);
+                highs.push(data[i].high);
+                lows.push(data[i].low);
+                closes.push(data[i].close);
             }
-            
-            // Create the candlestick chart trace
+
             var trace = {
                 x: dates,
-                close: close,
-                decreasing: {line: {color: '#FF0000'}},
-                high: high,
-                increasing: {line: {color: '#00FF00'}},
-                line: {color: 'rgba(31,119,180,1)'},
-                low: low,
-                open: open,
+                close: closes,
+                decreasing: { line: { color: '#FF0000' } },
+                high: highs,
+                increasing: { line: { color: '#00FF00' } },
+                line: { color: 'rgba(31,119,180,1)' },
+                low: lows,
+                open: opens,
                 type: 'candlestick',
                 xaxis: 'x',
                 yaxis: 'y'
             };
-            
-            // Define the layout
+
             var layout = {
-                title: '{{currency}} Currency Performance',
+                title: ' {{currency}} Currency Performance',
                 xaxis: {
                     rangeslider: {
-                        visible: false
-                    }
+                        visible: true
+                    },
+                    title: 'Time Interval'
                 },
                 yaxis: {
                     title: 'Price'
                 }
             };
-            
-            // Create the chart
-            var data = [trace];
-            Plotly.newPlot('chart-container', data, layout);
+
+            var candlestickData = [trace];
+
+            Plotly.newPlot('chart-container', candlestickData, layout);
         });
-    </script>    
+    </script>
+
+
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 </html>
